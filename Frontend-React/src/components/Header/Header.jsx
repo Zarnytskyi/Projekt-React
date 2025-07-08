@@ -13,10 +13,10 @@ const Header = () => {
     <div className={styles.container}>
         <Link to='/'><img src={logo}/></Link>
         <div className={styles.navbar}>
-        <NavLink to="/">Main Page</NavLink>
-        <NavLink to="/category">Category</NavLink>
-        <NavLink to="/allProducts">All products</NavLink>
-        <NavLink to="/allSales">All Sales</NavLink>
+        <NavLink className={styles.navbar_context} to="/">Main Page</NavLink>
+        <NavLink className={styles.navbar_context} to="/category">Category</NavLink>
+        <NavLink className={styles.navbar_context} to="/allProducts">All products</NavLink>
+        <NavLink className={styles.navbar_context} to="/allSales">All Sales</NavLink>
         </div>
         <div>
             <Link to="cart" style={{ position: 'relative', display: 'inline-block' }}>

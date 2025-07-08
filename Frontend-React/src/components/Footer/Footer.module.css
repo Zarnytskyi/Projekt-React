@@ -1,0 +1,34 @@
+.container_footer{
+    padding: 0px 40px 45px 40px;
+}
+.title{
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 36px;
+}
+.container_footer div {
+    gap: 20px;
+}
+.contact_addresse{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin-bottom: 20px;
+}
+.contact_addresse p {
+    color: #7c8082;
+    margin-bottom: 10px;
+}
+.contact_addresse div {
+    border-radius: 10px;
+    background-color: #F1F3F4;
+    padding: 20px;
+}
+.icon{
+    width: 24px;
+    transition: transform 0.3s ease, color 0.3s ease;
+    margin-right: 10px;
+}
+.icon:hover{
+    transform: scale(1.5);
+}
+
