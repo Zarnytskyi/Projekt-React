@@ -6,7 +6,6 @@ body, html, #root {
 .app-layout {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 main {
   flex-grow: 1; 

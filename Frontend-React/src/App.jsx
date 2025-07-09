@@ -6,6 +6,7 @@ import AllSales from "./pages/AllSales/AllSales"
 import Category from "./pages/Categories/Category"
 import AllProducts from "./pages/AllProducts/AllProducts"
 import MainLayout from "./layouts/MainLayout"
+import Discount from "./pages/Discount/Discount"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="category" element={<Category/>}/>
         <Route path="allProducts" element={<AllProducts/>}/>
         <Route path="cart" element={<Cart/>}/>
+        <Route path="discount" element={<Discount/>}/>
         </Route>
       </Routes>
   )
