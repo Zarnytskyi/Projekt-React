@@ -104,7 +104,7 @@ const onSubmit = async (data) => {
   ) : (
     items.slice(0, 4).map((category) => (
       <Link
-        to={`category/${category.id}`}
+        to={`/category/${category.id}`}
         key={category.id}
         className={styles.card}
       >
