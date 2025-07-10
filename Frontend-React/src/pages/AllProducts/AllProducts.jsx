@@ -10,18 +10,20 @@ const AllProducts = () => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([])
 
+  const [sortOrder, setSortOrder] = useState('default')
+  const [minPrice, setMinPrice] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
+
   const dispatch = useDispatch()
-  
-const handleAddToCart = (product) => {
-  dispatch(addToCart({
-    id: product.id,
-    title: product.title,
-    price: product.discont_price || product.price,
-    image: product.image
-  }))
-}
 
-
+  const handleAddToCart = (product) => {
+    dispatch(addToCart({
+      id: product.id,
+      title: product.title,
+      price: product.discont_price || product.price,
+      image: product.image
+    }))
+  }
 
   useEffect(() => {
     const fetchDataProduct = async () => {
@@ -39,9 +41,35 @@ const handleAddToCart = (product) => {
     fetchDataProduct()
   }, [])
 
-  const filteredProducts = categoryId
-    ? products.filter(product => product.categoryId === Number(categoryId))
-    : products
+  let displayedProducts = [...products]
+
+  if (categoryId) {
+    displayedProducts = displayedProducts.filter(product =>
+      product.categoryId === Number(categoryId)
+    )
+  }
+
+  if (minPrice !== '') {
+    displayedProducts = displayedProducts.filter(product =>
+      (product.discont_price || product.price) >= parseFloat(minPrice)
+    )
+  }
+
+  if (maxPrice !== '') {
+    displayedProducts = displayedProducts.filter(product =>
+      (product.discont_price || product.price) <= parseFloat(maxPrice)
+    )
+  }
+
+  if (sortOrder === 'asc') {
+    displayedProducts.sort((a, b) =>
+      (a.discont_price || a.price) - (b.discont_price || b.price)
+    )
+  } else if (sortOrder === 'desc') {
+    displayedProducts.sort((a, b) =>
+      (b.discont_price || b.price) - (a.discont_price || a.price)
+    )
+  }
 
   return (
     <div className={styles.categories_section}>
@@ -55,6 +83,41 @@ const handleAddToCart = (product) => {
         </div>
       </div>
 
+      <div className={styles.sort_select}>
+  <label>
+    Сортировка по цене:{' '}
+    <select
+      value={sortOrder}
+      onChange={(e) => setSortOrder(e.target.value)}
+      className={styles.select}
+    >
+      <option value="default">Без сортировки</option>
+      <option value="asc">По возрастанию</option>
+      <option value="desc">По убыванию</option>
+    </select>
+  </label>
+</div>
+
+<div className={styles.filter_inputs}>
+  <label>
+    Цена от:{' '}
+    <input
+      type="number"
+      value={minPrice}
+      onChange={(e) => setMinPrice(e.target.value)}
+    />
+  </label>
+  <label>
+    до:{' '}
+    <input
+      type="number"
+      value={maxPrice}
+      onChange={(e) => setMaxPrice(e.target.value)}
+    />
+  </label>
+</div>
+
+
       <div className={styles.cards_container}>
         {loading ? (
           <p style={{
@@ -65,35 +128,44 @@ const handleAddToCart = (product) => {
             marginTop: '20px'
           }}>Loading ...</p>
         ) : (
-          filteredProducts.length === 0 ? (
+          displayedProducts.length === 0 ? (
             <p style={{ fontSize: '24px', textAlign: 'center' }}>No products found.</p>
           ) : (
-            filteredProducts.map(product => {
+            displayedProducts.map(product => {
               const discount = product.discont_price
                 ? Math.round((1 - product.discont_price / product.price) * 100)
                 : 0
 
               return (
                 <div key={product.id} className={styles.card}>
-                  {discount > 0 && (
-                    <div className={styles.discount}><p>-{discount}%</p></div>
-                  )}
-                  <img
-                    src={`http://localhost:3333${product.image}`}
-                    alt={product.title}
-                  />
-                  <h4>{product.title}</h4>
-                  <div>
-                    {discount > 0 ? (
-                      <>
-                        <span className={styles.new_price}>${product.discont_price}</span>
-                        <span className={styles.old_price}>${product.price}</span>
-                      </>
-                    ) : (
-                      <span className={styles.Normalprice}>${product.price}</span>
-                    )}
-                  </div>
-                  <button onClick={() => handleAddToCart(product)} className={styles.btn}> Add to Cart </button>
+                  <Link to={`/products/${product.id}`} className={styles.card_link}>
+    {discount > 0 && (
+      <div className={styles.discount}>
+        <p>-{discount}%</p>
+      </div>
+    )}
+    <img
+      src={`http://localhost:3333${product.image}`}
+      alt={product.title}
+    />
+    <h4>{product.title}</h4>
+    <div>
+      {discount > 0 ? (
+        <>
+          <span className={styles.new_price}>${product.discont_price}</span>
+          <span className={styles.old_price}>${product.price}</span>
+        </>
+      ) : (
+        <span className={styles.Normalprice}>${product.price}</span>
+      )}
+    </div>
+  </Link>
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className={styles.btn}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               )
             })

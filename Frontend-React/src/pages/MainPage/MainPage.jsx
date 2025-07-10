@@ -74,7 +74,7 @@ const onSubmit = async (data) => {
           <h2 className={styles.title}>
             Amazing Discounts on Pets Products!
           </h2>
-          <Link to="/discount">
+          <Link to="/allSales">
             <button className={styles.btn_discount}>Check out</button>
           </Link>
         </div>
