@@ -85,6 +85,7 @@ const AllSales = () => {
 
             return (
               <div key={product.id} className={styles.card}>
+                <Link to={`/products/${product.id}`} className={styles.card_link}>
                 <div className={styles.discount}><p>-{discount}%</p></div>
                 <img
                   src={`http://localhost:3333${product.image}`}
@@ -95,6 +96,7 @@ const AllSales = () => {
                   <span className={styles.new_price}>${product.discont_price}</span>
                   <span className={styles.old_price}>${product.price}</span>
                 </div>
+                </Link>
                 <button
                   onClick={() => handleAddToCart(product)}
                   className={styles.btn}
