@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import styles from './Category.module.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Category = () => {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -14,6 +17,7 @@ const Category = () => {
       setItems(response.data)
     } catch (error) {
       console.error("Error fetching categories:", error)
+      navigate('/error')
     } finally {
       setLoading(false)
     }

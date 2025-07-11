@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlicer'
+import { useNavigate } from 'react-router-dom'
 import styles from './SingleProduct.module.css'
 
 const SingleProduct = () => {
@@ -11,6 +12,7 @@ const SingleProduct = () => {
   const [loading, setLoading] = useState(false)
   const [qty, setQty] = useState(1)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -20,6 +22,7 @@ const SingleProduct = () => {
         setProduct(response.data[0])
       } catch (error) {
         console.error('Error fetching product:', error)
+        navigate('/error')
       } finally {
         setLoading(false)
       }
@@ -39,7 +42,7 @@ const SingleProduct = () => {
   }
 
   if (loading) return <p className={styles.loading}>Loading...</p>
-  if (!product) return null
+  if (!product) return 
 
   const discount = product.discont_price
     ? Math.round((1 - product.discont_price / product.price) * 100)

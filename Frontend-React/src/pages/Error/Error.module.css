@@ -1,0 +1,21 @@
+.error_con{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.title{
+    font-size: 34px;
+    font-weight: 700;
+
+}
+.desc{
+    color: rgb(180, 177, 177);
+}
+.btn{
+    background-color: blue;
+    padding: 10px 20px;
+    border-radius: 10px;
+}

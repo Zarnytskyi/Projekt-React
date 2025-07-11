@@ -7,6 +7,7 @@ import Category from "./pages/Categories/Category"
 import AllProducts from "./pages/AllProducts/AllProducts"
 import MainLayout from "./layouts/MainLayout"
 import SingleProduct from "./pages/SingleProduct/SingleProduct"
+import Error from "./pages/Error/Error"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="allProducts" element={<AllProducts/>}/>
         <Route path="cart" element={<Cart/>}/>
         <Route path="products/:id" element={<SingleProduct />} />
+        <Route path="error" element={<Error/>}/>
         </Route>
       </Routes>
   )
